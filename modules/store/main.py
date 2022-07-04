@@ -30,7 +30,7 @@ class Store:
         msg = (
             f"📊 STORE STATS\n"
             f"==========================\n"
-            f"{'Alerts':<15}: {self.alerts}\n"
+            f"{'Alerts':<15}: {list(self.alerts)}\n"
             f"{'Data':<15}: {display_data}\n"
             f"{'Users':<15}: {users}\n"
             f"{'UserAlertLinks':<15}: {user_alert_links}\n"
