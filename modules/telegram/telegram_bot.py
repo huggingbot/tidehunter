@@ -25,10 +25,9 @@ my_queue: queue.Queue = queue.Queue()
 class TelegramBot(metaclass=Singleton):
     dispatcher: Dispatcher
     updater: Updater
-    start_time = datetime.now(tz=timezone.utc)
     queued_msg_started = False
 
-    def __init__(self):
+    def __init__(self) -> None:
         logger.setLevel(logging.INFO)
 
     def start_bot(self):
@@ -66,13 +65,13 @@ class TelegramBot(metaclass=Singleton):
         while not my_queue.empty():
             item = my_queue.get()
             # logger.info(item)
-            self.send_message_in_queue(item["chat_id"], item["message"])
+            self._send_message_in_queue(item["chat_id"], item["message"])
             logger.info(f"Remaining in queue: {my_queue.qsize()}")
             time.sleep(2)
         self.queued_msg_started = False
         logger.info(f"End of queue: {my_queue.qsize()}")
 
-    def send_message_in_queue(self, chat_id=TELEGRAM_GROUP_ID, message="blank"):
+    def _send_message_in_queue(self, chat_id, message="blank"):
         sleep = 1
         retry = 0
         while True:

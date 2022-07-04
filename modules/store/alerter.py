@@ -56,8 +56,8 @@ class Alerter:
                         f"==========================\n"
                         f"{'Alert key':<15}: {a['key']}\n"
                         f"{'Alert volume':<15}: {alert_volume:.3f}\n"
-                        f"{'Trigger delta':<15}: {delta_percent:.3f}%\n"
+                        f"{'Trigger delta':<15}: {Decimal(a['delta']):.3f}%\n"
                         f"{'Average volume':<15}: {avg_volume:.3f}\n"
                         f"==========================\n"
                     )
-                    telegram_bot.send_message(msg)
+                    telegram_bot.send_message(message=msg)
