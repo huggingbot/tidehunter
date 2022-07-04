@@ -1,0 +1,9 @@
+python-binance==1.0.16
+mypy==0.961
+python-dotenv==0.20.0
+pre-commit==2.19.0
+pyee==9.0.4
+python-telegram-bot==13.13
+sqlmodel==0.0.6
+nest-asyncio==1.5.5
+SQLAlchemy==1.4.35
