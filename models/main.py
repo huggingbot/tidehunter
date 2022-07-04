@@ -4,7 +4,7 @@ from sqlmodel import Field, Relationship, SQLModel, create_engine
 from settings import DATABASE_URI
 from typings.enums import UserRole
 
-engine = create_engine(DATABASE_URI, echo=True)
+engine = create_engine(DATABASE_URI, echo=False)
 
 
 def create_db_and_tables():
