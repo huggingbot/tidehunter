@@ -1,5 +1,6 @@
 import asyncio
 import os
+from datetime import datetime, timezone
 
 import nest_asyncio
 from dotenv import load_dotenv
@@ -26,6 +27,9 @@ async def main() -> None:
     create_db_and_tables()
 
     telegram_bot.start_bot()
+    telegram_bot.send_message(
+        message=f"start tidehunter-bot {datetime.now(tz=timezone.utc):%Y-%m-%d %H:%M:%S}"
+    )
     await asyncio.gather(asyncio.to_thread(lambda: telegram_bot.run_bot()))
 
     exchange = exchanges[Exchange.Binance]
