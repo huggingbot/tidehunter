@@ -15,6 +15,9 @@ class UserAlertLink(SQLModel, table=True):
     user_id: int = Field(foreign_key="user.id", primary_key=True)
     alert_id: int = Field(foreign_key="alert.id", primary_key=True)
 
+    def __repr__(self):
+        return f"{{user_id: {self.user_id}, alert_id: {self.alert_id}}}"
+
 
 class User(SQLModel, table=True):
     id: int = Field(primary_key=True, sa_column_kwargs={"autoincrement": True})
@@ -24,6 +27,9 @@ class User(SQLModel, table=True):
     alerts: list["Alert"] = Relationship(
         back_populates="users", link_model=UserAlertLink
     )
+
+    def __repr__(self):
+        return f"{{id: {self.id}, username: {self.username}, role: {self.role}}}"
 
 
 class Alert(SQLModel, table=True):
@@ -38,3 +44,9 @@ class Alert(SQLModel, table=True):
     users: list["User"] = Relationship(
         back_populates="alerts", link_model=UserAlertLink
     )
+
+    def __repr__(self):
+        return (
+            f"{{id: {self.id}, key: {self.key}, exchange: {self.exchange}, symbol: {self.symbol}, "
+            f"timeframe: {self.timeframe}, candle_len: {self.candle_len}, delta: {self.delta}}}"
+        )
