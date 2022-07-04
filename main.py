@@ -4,6 +4,7 @@ import os
 import nest_asyncio
 from dotenv import load_dotenv
 
+from core.loggings import logger
 from models.main import create_db_and_tables
 from modules.exchange import exchanges
 from modules.store.alerter import Alerter
@@ -21,7 +22,7 @@ nest_asyncio.apply()
 
 
 async def main() -> None:
-    print("Starting main()")
+    logger.info("Starting main()")
     create_db_and_tables()
 
     telegram_bot.start_bot()
