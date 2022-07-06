@@ -25,7 +25,10 @@ class Store:
                     display_data[exchange] = {}
                 _symbols: dict = display_data[exchange]
                 if not _symbols.get(symbol):
-                    _symbols[symbol] = list(timeframes)
+                    timeframe_volume = []
+                    for timeframe, volumes in timeframes.items():
+                        timeframe_volume.append((timeframe, len(volumes)))
+                    _symbols[symbol] = timeframe_volume
 
         msg = (
             f"📊 STORE STATS\n"

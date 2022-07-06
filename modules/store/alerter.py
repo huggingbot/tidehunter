@@ -1,5 +1,6 @@
 import asyncio
 from collections import OrderedDict
+from datetime import datetime, timezone
 from decimal import Decimal
 from statistics import fmean
 
@@ -56,6 +57,7 @@ class Alerter:
                     msg = (
                         f"🚨 ALERT TRIGGERED\n"
                         f"==========================\n"
+                        f"{'Date':<15}: {datetime.now(tz=timezone.utc):%Y-%m-%d %H:%M:%S}\n"
                         f"{'Alert key':<15}: {a['key']}\n"
                         f"{'Alert volume':<15}: {alert_volume:.3f}\n"
                         f"{'Trigger delta':<15}: {Decimal(a['delta']):.3f}%\n"
