@@ -40,6 +40,8 @@ class Alerter:
 
             volumes: OrderedDict = data[a["exchange"]][a["symbol"]][a["timeframe"]]
             volume_values = list(volumes.values())
+            if not len(volume_values):
+                return
             current_volume = volume_values[-1]
             avg_volume = Decimal(fmean(volume_values[-candle_len - 1 : -1]))
             alert_volume = avg_volume + (avg_volume * delta_percent)

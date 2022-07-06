@@ -29,6 +29,7 @@ class GarbageCleaner:
         self.clean_alerter()
 
     def clean_store(self) -> None:
+        volume_keys = []
         data = self.store.data
         for exchange, symbols in data.items():
             for symbol, timeframes in symbols.items():
@@ -43,10 +44,15 @@ class GarbageCleaner:
 
                     # An old item is present in the ordered dict
                     if default_start_time > current_first_time:
-                        # Remove first item
-                        volumes.popitem(last=False)
+                        volume_keys.append(
+                            (exchange, symbol, timeframe, current_first_time)
+                        )
+
+        for exchange, symbol, timeframe, timestamp in volume_keys:
+            del self.store.data[exchange][symbol][timeframe][timestamp]
 
     def clean_alerter(self) -> None:
+        alert_keys = []
         last_alerts = self.alerter.last_alerts
         for key, timestamp in last_alerts.items():
             timeframe = get_timeframe_from_alert_key(key)
@@ -54,4 +60,6 @@ class GarbageCleaner:
                 timeframe
             )
             if complete_candle_start_time > timestamp:
-                del self.alerter.last_alerts[key]
+                alert_keys.append(key)
+        for alert_key in alert_keys:
+            del self.alerter.last_alerts[alert_key]
