@@ -131,13 +131,15 @@ def validate_candle_len(update: Update, context: CallbackContext) -> Optional[in
     assert update.message is not None
     assert context.args is not None
 
+    timeframe = context.args[2].lower()
     try:
         candle_len = int(context.args[3])
-        assert MIN_CANDLE_LEN <= candle_len <= MAX_CANDLE_LEN
+        assert MIN_CANDLE_LEN <= candle_len <= MAX_CANDLE_LEN[timeframe]
         return candle_len
     except (ValueError, AssertionError):
         update.message.reply_text(
-            f"Invalid candle length given. Supported range: {MIN_CANDLE_LEN} to {MAX_CANDLE_LEN}"
+            f"Invalid candle length given. "
+            f"Supported range for {timeframe}: {MIN_CANDLE_LEN} to {MAX_CANDLE_LEN[timeframe]}"
         )
     return None
 

@@ -38,7 +38,7 @@ class GarbageCleaner:
                         get_latest_incomplete_candlestick_start_time(timeframe)
                     )
                     default_start_time = latest_candle_start_time - (
-                        interval_in_ms(timeframe) * MAX_CANDLE_LEN
+                        interval_in_ms(timeframe) * MAX_CANDLE_LEN[timeframe]
                     )
 
                     # An old item is present in the ordered dict

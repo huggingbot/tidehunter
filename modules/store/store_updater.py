@@ -67,7 +67,7 @@ class StoreUpdater:
                 timeframe
             )
             start_time = latest_candle_start_time - (
-                interval_in_ms(timeframe) * MAX_CANDLE_LEN
+                interval_in_ms(timeframe) * MAX_CANDLE_LEN[timeframe]
             )
 
             exchange = exchanges[a.exchange]
